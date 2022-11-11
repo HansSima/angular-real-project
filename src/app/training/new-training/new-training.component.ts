@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./new-training.component.css'],
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
-  exercises!: Exercise[];
+  exercises!: Exercise[] | null;
   exerciseSubscription!: Subscription;
 
   constructor(private trainingService: TrainingService) {}
@@ -22,10 +22,14 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
       (exercises) => (this.exercises = exercises)
     );
-    this.trainingService.fetchAvailableExercises();
+    this.fetchExercises();
   }
 
   onStartTraining(form: NgForm) {
     this.trainingService.startExercise(form.value.exercise);
+  }
+
+  fetchExercises() {
+    this.trainingService.fetchAvailableExercises();
   }
 }
