@@ -102,7 +102,6 @@ export class TrainingService {
       this.exerciseCollection
         .valueChanges()
         .subscribe((exercises: Exercise[]) => {
-          console.log(exercises);
           this.finishedExercisesChanged.next(exercises);
         })
     );
