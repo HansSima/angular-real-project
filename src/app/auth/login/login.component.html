@@ -11,7 +11,8 @@
       <mat-hint align="end">{{ passwordInput.value?.length }} / 6</mat-hint>
       <mat-error>Has to be at least 6 characters long</mat-error>
     </mat-form-field>
-    <button *ngIf="!isLoading" mat-raised-button type="submit" color="primary" [disabled]="f.invalid">Login</button>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <button *ngIf="!(isLoading$ | async)" mat-raised-button type="submit" color="primary"
+      [disabled]="f.invalid">Login</button>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </form>
 </section>
