@@ -5,7 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 import { UiService } from 'src/app/shared/ui.service';
 import { AuthService } from '../auth.service';
 import { map } from 'rxjs/operators';
-import * as fromApp from '../../app.reducer';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +14,11 @@ import * as fromApp from '../../app.reducer';
 })
 export class LoginComponent implements OnInit {
   isLoading$?: Observable<boolean>;
-  private loadingSubscription!: Subscription;
+  //private loadingSubscription!: Subscription;
   constructor(
     private authService: AuthService,
     private uiService: UiService,
-    private store: Store<{ ui: fromApp.State }>
+    private store: Store<{ ui: fromRoot.State }>
   ) {}
 
   ngOnInit() {}
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }*/
 
   onSubmit(form: NgForm) {
-    this.isLoading$ = this.store.pipe(map((state) => state.ui.isLoading));
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
 
     /*this.loadingSubscription = this.uiService.loadingStateChange.subscribe(
       (isLoading) => {
